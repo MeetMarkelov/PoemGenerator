@@ -1,5 +1,4 @@
-// PoemGenerator.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// Made by Vladislav Markelov. Use as you wish
 
 #include <string>
 #include <iostream>
@@ -18,7 +17,7 @@ Rhyme::Rhyme(std::string ToParse) : First("First"), Second("Second")
 {
 	if (ToParse.find(':') != std::string::npos)
 	{
-		int Delim = ToParse.find(':');
+		int Delim = (int)ToParse.find(':');
 		std::string InFirst = ToParse.substr(0, Delim);
 		std::string InSecond = ToParse.substr(Delim + 1, ToParse.size() - Delim);
 		if (InFirst.size() > 0)
@@ -26,7 +25,6 @@ Rhyme::Rhyme(std::string ToParse) : First("First"), Second("Second")
 		if (InSecond.size() > 0)
 			Second = InSecond;
 	}
-	//std::cout << "First: " << First << "; Second: " << Second << std::endl;
 }
 
 Rhyme::Rhyme() : First("First"), Second("Second")
@@ -71,8 +69,8 @@ std::vector<int> PoemGenerator::GetIndexesFromFormat(std::string& Format) const
 	std::vector<int> Indexes;
 	while (Format.find('{', FindFrom) != std::string::npos)
 	{
-		int Start = Format.find('{', FindFrom);
-		int End = Format.find('}', FindFrom);
+		int Start = (int)Format.find('{', FindFrom);
+		int End = (int)Format.find('}', FindFrom);
 
 		std::string Current = Format.substr(Start + 1, End - Start - 1);
 
@@ -82,13 +80,10 @@ std::vector<int> PoemGenerator::GetIndexesFromFormat(std::string& Format) const
 
 		Indexes.push_back(ListIndex);
 
-		//Format.erase(Start + 1, End - Start - 1);
-		//Format.insert(Start + 1, std::to_string(CurrentIndex));
 		Format.replace(Start + 1, End - Start - 1, std::to_string(CurrentIndex));
 
-		FindFrom = Start + std::to_string(CurrentIndex).length() + 2;
+		FindFrom = Start + (int)std::to_string(CurrentIndex).length() + 2;
 		CurrentIndex++;
-		//std::cout << "Index: " << Indexes[Indexes.size() - 1] << std::endl;
 	}
 	return Indexes;
 }
@@ -115,7 +110,7 @@ std::string PoemGenerator::GeneratePoem(std::string Format, int CountRows)
 		for (int CurrentList : Indexes)
 		{
 			std::string ToFind = '{' + std::to_string(CurrentIndex) + '}';
-			int Length = ToFind.size();
+			int Length = (int)ToFind.size();
 			Rhyme CurrentRhyme = Lists[CurrentList].GetRandomRhyme();
 
 			static int RandSeed = -1;
@@ -151,14 +146,3 @@ PoemGenerator::PoemGenerator(std::vector<std::string> ListsToParse)
 		Lists.push_back(CurrentList);
 	}
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

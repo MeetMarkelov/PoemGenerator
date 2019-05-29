@@ -1,3 +1,5 @@
+// Made by Vladislav Markelov. Use as you wish
+
 #include <string>
 #include <iostream>
 #include <filesystem>
@@ -10,9 +12,6 @@ namespace fs = std::experimental::filesystem;
 
 int main()
 {
-	//SetConsoleCP(1251);
-	//SetConsoleOutputCP(1251);
-
 	const static std::string RhymesFileEnd = "_Rhymes.txt";
 
 	std::cout << "All lists must end with '" << RhymesFileEnd << "'" << std::endl;

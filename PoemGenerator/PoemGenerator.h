@@ -1,3 +1,5 @@
+// Made by Vladislav Markelov. Use as you wish
+
 #pragma once
 
 #include <string>
